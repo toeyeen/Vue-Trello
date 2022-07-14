@@ -2,55 +2,55 @@
 import {
   Drawer as KDrawer,
   DrawerContent as KDrawerContent,
-} from '@progress/kendo-vue-layout'
-import type { DrawerList } from '../types'
+} from "@progress/kendo-vue-layout";
+import type { DrawerList } from "../types";
 
-import { useRouter } from 'vue-router'
-import { useLocalStorage } from '@vueuse/core'
+import { useRouter } from "vue-router";
+import { useLocalStorage } from "@vueuse/core";
 
-import { computed, ref } from 'vue'
+import { computed, ref } from "vue";
 
-const selectedId = ref(0)
+const selectedId = ref(0);
 
-const router = useRouter()
+const router = useRouter();
 
-const expanded = useLocalStorage('drawer-expanded', true)
+const expanded = useLocalStorage("drawer-expanded", true);
 
 const expandedIcon = computed<string>(() =>
-  expanded.value ? 'k-i-arrow-chevron-left' : 'k-i-arrow-chevron-right'
-)
+  expanded.value ? "k-i-arrow-chevron-left" : "k-i-arrow-chevron-right"
+);
 
 const items = computed(() => [
   {
-    text: 'Boards',
-    icon: 'k-i-set-column-position',
+    text: "Boards",
+    icon: "k-i-set-column-position",
     selected: true,
     data: {
-      path: '/boards',
+      path: "/boards",
     },
   },
   {
-    text: 'Templates',
-    icon: 'k-i-border-left',
+    text: "Templates",
+    icon: "k-i-border-left",
     data: {
-      path: '/templates',
+      path: "/templates",
     },
   },
   {
-    text: 'Settings',
-    icon: 'k-i-gear',
+    text: "Settings",
+    icon: "k-i-gear",
     data: {
-      path: '/settings',
+      path: "/settings",
     },
   },
   {
-    text: 'Collapse',
+    text: "Collapse",
     icon: expandedIcon.value,
     data: {
       action: () => (expanded.value = !expanded.value),
     },
   },
-])
+]);
 // const items = computed<Partial<DrawerList>[]>(() => [
 //   {
 //     text: 'Boards',
@@ -84,11 +84,11 @@ const items = computed(() => [
 // ])
 
 const onSelect = ({ itemIndex }: { itemIndex: number }) => {
-  console.log(items.value[itemIndex])
-  const item = items.value[itemIndex]
-  if (item.data.path) router.push(item.data.path)
-  if (typeof item.data.action === 'function') item.data.action()
-}
+  console.log(items.value[itemIndex]);
+  const item = items.value[itemIndex];
+  if (item.data.path) router.push(item.data.path);
+  if (typeof item.data.action === "function") item.data.action();
+};
 </script>
 <template>
   <div>
@@ -102,7 +102,7 @@ const onSelect = ({ itemIndex }: { itemIndex: number }) => {
       @select="onSelect"
     >
       <KDrawerContent>
-        <div class="px-5">
+        <div class="px-5 py-2">
           <router-view />
         </div>
       </KDrawerContent>
