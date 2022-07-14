@@ -6,6 +6,7 @@ import {
 import type { DrawerList } from '../types'
 
 import { useRouter } from 'vue-router'
+import { useLocalStorage } from '@vueuse/core'
 
 import { computed, ref } from 'vue'
 
@@ -13,7 +14,7 @@ const selectedId = ref(0)
 
 const router = useRouter()
 
-const expanded = ref(false)
+const expanded = useLocalStorage('drawer-expanded', true)
 
 const expandedIcon = computed<string>(() =>
   expanded.value ? 'k-i-arrow-chevron-left' : 'k-i-arrow-chevron-right'
@@ -90,21 +91,23 @@ const onSelect = ({ itemIndex }: { itemIndex: number }) => {
 }
 </script>
 <template>
-  <KDrawer
-    class="h-[90vh]"
-    :expanded="expanded"
-    position="start"
-    mode="push"
-    :mini="true"
-    :items="items"
-    @select="onSelect"
-  >
-    <KDrawerContent>
-      <div class="px-5">
-        <router-view />
-      </div>
-    </KDrawerContent>
-  </KDrawer>
+  <div>
+    <KDrawer
+      class="h-[90vh]"
+      :expanded="expanded"
+      position="start"
+      mode="push"
+      :mini="true"
+      :items="items"
+      @select="onSelect"
+    >
+      <KDrawerContent>
+        <div class="px-5">
+          <router-view />
+        </div>
+      </KDrawerContent>
+    </KDrawer>
+  </div>
 </template>
 
 <style scoped></style>

@@ -93,6 +93,6 @@ export interface DrawerList {
   selected: boolean
   data: {
     path?: string
-    action?(): void
+    action?: () => void
   }
 }
