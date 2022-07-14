@@ -5,6 +5,6 @@ import TheDrawer from './components/TheDrawer.vue'
 
 <template>
   <TheNavbar />
-  <RouterView />
+  <!-- <RouterView /> -->
   <TheDrawer />
 </template>
