@@ -24,6 +24,7 @@ export interface Board extends Resource8base {
 
   // relationships
   image?: Partial<File>;
+  color?: string;
   tasks?: Partial<Task>[];
 }
 
@@ -109,4 +110,9 @@ export interface AlertOptions {
 export interface Alert extends AlertOptions {
   id: string;
   message: string;
+}
+export interface Colors {
+  id: string | number;
+  color: string;
+  type?: string;
 }

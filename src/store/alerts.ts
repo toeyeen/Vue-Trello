@@ -6,7 +6,7 @@ import type { AlertOptions, AlertStyle, Alert } from "@/types";
 const defaultOptions: Required<AlertOptions> = {
   html: false,
   closable: true,
-  timeout: false,
+  timeout: 3000,
   style: "info",
 };
 

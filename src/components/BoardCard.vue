@@ -24,7 +24,8 @@ const randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
       <div
         v-else
         class="w-full aspect-video"
-        :style="{ backgroundColor: randomColor }"
+        :class="board.color"
+        :style="[board.color ? '' : 'backgroundColor: randomColor']"
       ></div>
 
       <KCardTitle class="p-2">
