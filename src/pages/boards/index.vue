@@ -5,12 +5,10 @@ import {
   DialogActionsBar as KDialogActionsBar,
 } from "@progress/kendo-vue-dialogs";
 import { Input as KInput } from "@progress/kendo-vue-inputs";
-
+import draggable from "vuedraggable";
 import { useAlerts } from "@/store/alerts";
 import type { Board, Colors } from "../../types";
 import { ref, reactive, computed } from "vue";
-
-defineProps(["title"]);
 
 const boards = ref<Partial<Board>[]>([
   {
@@ -34,17 +32,10 @@ const boards = ref<Partial<Board>[]>([
   },
 ]);
 
-const boardState = reactive({
-  isDisabled: false,
-  title: "",
-  color: "bg-blue-400",
-});
-
+let uid = 3;
 const title = ref("");
 const visibleDialog = ref(false);
 const alerts = useAlerts();
-let uid = 3;
-
 const colors = ref<Colors[]>([
   {
     id: 1,
@@ -78,6 +69,13 @@ const colors = ref<Colors[]>([
   },
 ]);
 
+const boardState = reactive({
+  isDisabled: false,
+  title: "",
+  color: "bg-blue-400",
+  drag: false,
+});
+
 const newColor = (index: string | number) => {
   switch (index) {
     case 1:
@@ -109,7 +107,7 @@ const selectBg = (type: string) => {
   boardState.color = type;
 };
 
-const openBoard = () => {
+const toggleBoard = () => {
   visibleDialog.value = !visibleDialog.value;
 };
 
@@ -124,20 +122,34 @@ const createBoard = () => {
 
   boardState.title = "";
   boardState.color = "bg-blue-400";
-  openBoard();
+  toggleBoard();
   alerts.success("Board Created");
+};
+
+const log = (evt: any) => {
+  console.log(evt);
 };
 </script>
 
 <template>
   <h1 class="mb-5 text-3xl">Boards</h1>
-  <KButton @click="openBoard" :icon="'folder'" :fill-mode="'outline'"
+  <KButton @click="toggleBoard" :icon="'folder'" :fill-mode="'outline'"
     >Add Board</KButton
   >
   <div class="my-4 border-b border-gray-200"></div>
-  <div class="grid items-center grid-cols-3 gap-4">
-    <BoardCard v-for="board in boards" :key="board.id" :board="board" />
-  </div>
+
+  <draggable
+    :list="boards"
+    item-key="name"
+    class="grid items-center grid-cols-3 gap-4 list-group"
+    ghost-class="ghost"
+    @start="boardState.drag = true"
+    @end="boardState.drag = false"
+  >
+    <template #item="{ element: board }">
+      <BoardCard :board="board" />
+    </template>
+  </draggable>
 
   <!-- KDialog Component -->
   <k-dialog
@@ -145,7 +157,7 @@ const createBoard = () => {
     class="text-center"
     :title="'Create Board'"
     :width="316"
-    @close="openBoard"
+    @close="toggleBoard"
   >
     <div
       class="h-32 w-[200px] mx-auto bg-blue-400"
@@ -197,8 +209,8 @@ const createBoard = () => {
       >
     </div>
     <!-- <dialog-actions-bar>
-      <kbutton @click="openBoard">No</kbutton>
-      <kbutton :theme-color="'primary'" @click="openBoard">Yes</kbutton>
+      <kbutton @click="toggleBoard">No</kbutton>
+      <kbutton :theme-color="'primary'" @click="toggleBoard">Yes</kbutton>
     </dialog-actions-bar> -->
   </k-dialog>
 </template>

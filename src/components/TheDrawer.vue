@@ -101,7 +101,7 @@ const onSelect = ({ itemIndex }: { itemIndex: number }) => {
       :items="items"
       @select="onSelect"
     >
-      <KDrawerContent>
+      <KDrawerContent class="h-full overflow-x-scroll">
         <div class="px-5 py-2">
           <router-view />
         </div>
