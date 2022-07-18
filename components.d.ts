@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     AppImageDropZone: typeof import('./src/components/AppImageDropZone.vue')['default']
     BoardCard: typeof import('./src/components/BoardCard.vue')['default']
     BoardDragAndDrrop: typeof import('./src/components/BoardDragAndDrrop.vue')['default']
+    DraggableCard: typeof import('./src/components/DraggableCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheAlerts: typeof import('./src/components/TheAlerts.vue')['default']

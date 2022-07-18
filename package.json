@@ -15,7 +15,8 @@
   "dependencies": {
     "@types/uuid": "^8.3.4",
     "@vue/apollo-composable": "^4.0.0-alpha.18",
-    "@vueuse/core": "^8.9.2",
+    "@vueuse/components": "^8.9.4",
+    "@vueuse/core": "^8.9.4",
     "graphql-tag": "^2.12.6",
     "lodash-es": "^4.17.21",
     "pinia": "^2.0.16",

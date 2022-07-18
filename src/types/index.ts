@@ -116,3 +116,16 @@ export interface Colors {
   color: string;
   type?: string;
 }
+
+export interface CardTask {
+  id: number;
+  name: string;
+}
+export interface CardItem {
+  id: string | number;
+  name: string;
+  order: string;
+  tasks: Required<CardTask>[];
+  type: string;
+  mouseEntered: boolean;
+}
